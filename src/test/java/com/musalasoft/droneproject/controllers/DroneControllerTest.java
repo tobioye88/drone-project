@@ -49,7 +49,7 @@ class DroneControllerTest {
         MedicationDTO expectedMedicationDTO = getMedicationDTO();
         assertDoesNotThrow(() -> {
             ResponseEntity<MedicationDTO> medicationDTOResponseEntity = controller.loadDrone(1L, expectedMedicationDTO);
-            assertEquals(medicationDTOResponseEntity.getStatusCode(), HttpStatus.OK);
+            assertEquals(HttpStatus.OK, medicationDTOResponseEntity.getStatusCode());
 
             MedicationDTO body = medicationDTOResponseEntity.getBody();
             assertNotNull(body);
@@ -61,7 +61,7 @@ class DroneControllerTest {
     void dronesAvailable() {
         assertDoesNotThrow(() -> {
             ResponseEntity<List<DroneDTO>> droneDTOResponseEntity = controller.dronesAvailable();
-            assertEquals(droneDTOResponseEntity.getStatusCode(), HttpStatus.OK);
+            assertEquals(HttpStatus.OK, droneDTOResponseEntity.getStatusCode());
 
             List<DroneDTO> droneDTO = droneDTOResponseEntity.getBody();
             assertNotNull(droneDTO);
@@ -72,7 +72,7 @@ class DroneControllerTest {
     void getDrone() {
         assertDoesNotThrow(() -> {
             ResponseEntity<DroneDTO> droneDTOResponseEntity = controller.getDrone(1L);
-            assertEquals(droneDTOResponseEntity.getStatusCode(), HttpStatus.OK);
+            assertEquals(HttpStatus.OK, droneDTOResponseEntity.getStatusCode());
 
             DroneDTO droneDTO = droneDTOResponseEntity.getBody();
             assertNotNull(droneDTO);

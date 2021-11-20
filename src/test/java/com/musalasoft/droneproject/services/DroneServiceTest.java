@@ -138,7 +138,7 @@ class DroneServiceTest {
     @Test
     void testThat_exception_is_thrown_when_drone_not_found() {
         assertThrows(DroneNotFound.class, () -> {
-            MedicationDTO medicationDTO = droneService.loadDrone(IDs.DroneNotFoundId.value, getMedicationDTO());
+            droneService.loadDrone(IDs.DroneNotFoundId.value, getMedicationDTO());
         });
     }
 
