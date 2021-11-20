@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 @RestController
@@ -26,5 +28,15 @@ public class DroneController {
     @PutMapping(value = "/{id}", consumes = "application/json")
     public ResponseEntity<MedicationDTO> loadDrone(@PathVariable long id, @Valid @RequestBody MedicationDTO medicationDTO) throws Exception {
         return ResponseEntity.ok(droneService.loadDrone(id, medicationDTO));
+    }
+
+    @GetMapping("/available")
+    public ResponseEntity<List<DroneDTO>> dronesAvailable() {
+        return ResponseEntity.ok(droneService.getAvailableDrones());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<DroneDTO> getDrone(@PathVariable long id) throws Exception {
+        return ResponseEntity.ok(droneService.getDrone(id));
     }
 }

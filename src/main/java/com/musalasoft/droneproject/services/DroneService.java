@@ -14,6 +14,7 @@ import com.musalasoft.droneproject.repository.DroneRepository;
 import com.musalasoft.droneproject.repository.MedicationRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -91,10 +92,33 @@ public class DroneService {
     }
 
     public List<DroneDTO> getAvailableDrones() {
-        return null;
+        List<Drone> idleDrones = droneRepository.findByState(State.IDLE);
+        List<DroneDTO> results = new ArrayList<>();
+        idleDrones.forEach(drone -> results.add(new DroneDTO(
+                drone.getId(),
+                drone.getSerialNumber(),
+                drone.getModel(),
+                drone.getWeightLimit(),
+                drone.getBatteryCapacity(),
+                drone.getState())));
+        return results;
     }
 
-    public DroneDTO getDrone(long id) {
-        return null;
+    public DroneDTO getDrone(long id) throws DroneNotFound {
+        Drone drone = droneRepository.findById(id).orElseThrow(DroneNotFound::new);
+        DroneDTO droneDTO = new DroneDTO(
+                drone.getId(),
+                drone.getSerialNumber(),
+                drone.getModel(),
+                drone.getWeightLimit(),
+                drone.getBatteryCapacity(),
+                drone.getState());
+        droneDTO.setLoad(mapDroneMedicationsToLoads(drone.getMedications()));
+        return droneDTO;
+    }
+
+    private List<Load> mapDroneMedicationsToLoads(List<Medication> medications) {
+        if(medications == null) return null;
+        return new ArrayList<>(medications);
     }
 }
