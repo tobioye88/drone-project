@@ -1,13 +1,11 @@
 package com.musalasoft.droneproject.controllers;
 
 import com.musalasoft.droneproject.dto.DroneDTO;
+import com.musalasoft.droneproject.dto.MedicationDTO;
 import com.musalasoft.droneproject.services.DroneService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -25,5 +23,8 @@ public class DroneController {
         return ResponseEntity.status(HttpStatus.CREATED).body(droneService.register(droneDTO));
     }
 
-
+    @PutMapping(value = "/{id}", consumes = "application/json")
+    public ResponseEntity<MedicationDTO> loadDrone(@PathVariable long id, @Valid @RequestBody MedicationDTO medicationDTO) throws Exception {
+        return ResponseEntity.ok(droneService.loadDrone(id, medicationDTO));
+    }
 }
