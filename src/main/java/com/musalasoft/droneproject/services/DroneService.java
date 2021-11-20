@@ -10,8 +10,9 @@ import com.musalasoft.droneproject.exceptions.DroneIllegalLoading;
 import com.musalasoft.droneproject.exceptions.DroneMaxWeightExceeded;
 import com.musalasoft.droneproject.exceptions.DroneNotFound;
 import com.musalasoft.droneproject.interfaces.Load;
-import com.musalasoft.droneproject.repository.DroneRepository;
-import com.musalasoft.droneproject.repository.MedicationRepository;
+import com.musalasoft.droneproject.repositories.DroneRepository;
+import com.musalasoft.droneproject.repositories.MedicationRepository;
+
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ public class DroneService {
         return newDrone;
     }
 
-    public MedicationDTO loadDrone(long droneId, Load payload) throws Exception {
+    public MedicationDTO loadDrone(long droneId, Load payload) throws DroneNotFound, DroneBatteryLow, DroneIllegalLoading, DroneMaxWeightExceeded  {
         Drone drone = validateDroneLoading(droneId, payload);
         if(drone.getState().equals(State.IDLE)){
             drone.setState(State.LOADING);
@@ -66,7 +67,7 @@ public class DroneService {
         return medicationDTO;
     }
 
-    private Drone validateDroneLoading(long droneId, Load load) throws Exception {
+    private Drone validateDroneLoading(long droneId, Load load) throws DroneNotFound, DroneBatteryLow, DroneIllegalLoading, DroneMaxWeightExceeded {
         Optional<Drone> optionalDrone = droneRepository.findById(droneId);
         if(!optionalDrone.isPresent()){
             throw new DroneNotFound();
@@ -118,7 +119,7 @@ public class DroneService {
     }
 
     private List<Load> mapDroneMedicationsToLoads(List<Medication> medications) {
-        if(medications == null) return null;
+        if(medications == null) return new ArrayList<>();
         return new ArrayList<>(medications);
     }
 }

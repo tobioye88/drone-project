@@ -8,8 +8,9 @@ import com.musalasoft.droneproject.enums.State;
 import com.musalasoft.droneproject.exceptions.DroneBatteryLow;
 import com.musalasoft.droneproject.exceptions.DroneIllegalLoading;
 import com.musalasoft.droneproject.exceptions.DroneNotFound;
-import com.musalasoft.droneproject.repository.DroneRepository;
-import com.musalasoft.droneproject.repository.MedicationRepository;
+import com.musalasoft.droneproject.repositories.DroneRepository;
+import com.musalasoft.droneproject.repositories.MedicationRepository;
+
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;

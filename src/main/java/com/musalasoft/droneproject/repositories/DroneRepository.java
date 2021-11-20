@@ -1,4 +1,4 @@
-package com.musalasoft.droneproject.repository;
+package com.musalasoft.droneproject.repositories;
 
 import com.musalasoft.droneproject.entities.Drone;
 import com.musalasoft.droneproject.enums.State;
